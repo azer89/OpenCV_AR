@@ -1,0 +1,27 @@
+///// header files
+
+// old
+C:\Users\azer\workspace\opencv_4_0_1\build\include;%(AdditionalIncludeDirectories)
+
+// new
+C:\Users\azer\workspace\opencv_4_5_2\bin\install\include;%(AdditionalIncludeDirectories)
+
+///// library folder
+
+// old
+C:\Users\azer\workspace\opencv_4_0_1\build\x64\vc15\lib
+
+// new
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/
+
+//////////////////// lib files
+
+// old
+C:\Users\azer\workspace\opencv_4_0_1\build\x64\vc15\lib\opencv_world401.lib
+
+// new
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_core452.lib
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_highgui452.lib
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_imgproc452.lib
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_imgcodecs452.lib
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_aruco452.lib
