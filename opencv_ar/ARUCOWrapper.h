@@ -9,8 +9,10 @@ public:
 
 	void CreateArucoMarker();
 
-	void DetectArucoMarkerFromAnImage();
+	void DetectArucoMarkerFromImage();
 
+	void DetectArucoMarkerFromVideo();
+	
 	void DetectCharucoBoardFromVideo();
 };
 

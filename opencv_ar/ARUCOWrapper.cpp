@@ -177,12 +177,85 @@ void ARUCOWrapper::DetectCharucoBoardFromVideo()
     cv::destroyAllWindows();
 }
 
-// to do: 
-// https://docs.opencv.org/3.4.1/d5/dae/tutorial_aruco_detection.html
-// // Calibration: https://docs.opencv.org/3.4/da/d13/tutorial_aruco_calibration.html
-// readCameraParameters https://docs.opencv.org/3.4/df/d4a/tutorial_charuco_detection.html
+void ARUCOWrapper::DetectArucoMarkerFromVideo()
+{
+	// Is this the correct length?
+    int markerLength = 120;
+	
+    cv::Mat camMatrix;
+    cv::Mat distCoeffs;
 
-void ARUCOWrapper::DetectArucoMarkerFromAnImage()
+    std::string calibFile = "calib_camera";
+    bool readOk = ReadCameraParameters(calibFile, camMatrix, distCoeffs);
+    if (!readOk) {
+        std::cerr << "Invalid camera file" << std::endl;
+        return;
+    }
+	
+    cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
+    cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
+
+
+    double totalTime = 0;
+    int totalIterations = 0;
+
+
+    cv::VideoCapture inputVideo;
+    int camId = 0;
+    inputVideo.open(camId, cv::CAP_DSHOW);
+    int waitTime = 10;
+
+    while (inputVideo.grab())
+    {
+        cv::Mat image;
+        cv::Mat imageCopy;
+        inputVideo.retrieve(image);
+        
+        double tick = (double)cv::getTickCount();
+
+        std::vector< int > ids;
+        std::vector< std::vector< cv::Point2f > > corners, rejected;
+        std::vector< cv::Vec3d > rvecs, tvecs;
+
+        // detect markers and estimate pose
+        cv::aruco::detectMarkers(image, dictionary, corners, ids, detectorParams, rejected);
+        if (ids.size() > 0)
+            cv::aruco::estimatePoseSingleMarkers(corners, markerLength, camMatrix, distCoeffs, rvecs,
+                tvecs);
+
+        double currentTime = ((double)cv::getTickCount() - tick) / cv::getTickFrequency();
+        totalTime += currentTime;
+        totalIterations++;
+        if (totalIterations % 30 == 0) {
+            std::cout << "Detection Time = " << currentTime * 1000 << " ms "
+                << "(Mean = " << 1000 * totalTime / double(totalIterations) << " ms)" << std::endl;
+        }
+
+        // draw results
+        image.copyTo(imageCopy);
+        if (ids.size() > 0) {
+            cv::aruco::drawDetectedMarkers(imageCopy, corners, ids);
+            
+            for (unsigned int i = 0; i < ids.size(); i++)
+                cv::aruco::drawAxis(imageCopy, camMatrix, distCoeffs, rvecs[i], tvecs[i],
+                    markerLength * 0.5f);
+        }
+
+        if (rejected.size() > 0)
+            cv::aruco::drawDetectedMarkers(imageCopy, rejected, cv::noArray(), cv::Scalar(100, 0, 255));
+
+        imshow("out", imageCopy);
+        char key = (char)cv::waitKey(waitTime);
+        if (key == 27) break;
+    }
+
+    // close video
+    inputVideo.release();
+    cv::destroyAllWindows();
+	
+}
+
+void ARUCOWrapper::DetectArucoMarkerFromImage()
 {
     std::string img_path = "C://Users//azer//workspace//opencv_ar//x64//Release//pic1.jpg";
     cv::Mat inputImage = cv::imread(img_path, cv::IMREAD_COLOR);
