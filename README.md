@@ -13,6 +13,11 @@ Calibration to measure the camera distortion
 ![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/calibration_board.png)
 
 ---
+Detecting a board
+
+![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/board_detection.gif)
+
+---
 
 Requirements:
 * A webcam
