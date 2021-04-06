@@ -1,6 +1,18 @@
 Tracking fiducial markers using OpenCV
 
-![alt tag](https://github.com/azer89/opencv_ar/raw/master/x64/Release/detected_marker.png)
+---
+
+Detecting a simple marker
+
+![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/detected_marker.png)
+
+---
+
+Calibration to measure the camera distortion 
+
+![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/calibration_board.png)
+
+---
 
 Requirements:
 * A webcam
