@@ -9,6 +9,7 @@ public:
 	~CameraCalibrator();
 
 	void CreateBoard();
+    void CalibrateBoard();
 
 private:
     int squaresX; // w

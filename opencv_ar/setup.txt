@@ -25,3 +25,4 @@ C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_highgui452.
 C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_imgproc452.lib
 C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_imgcodecs452.lib
 C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_aruco452.lib
+C:/Users/azer/workspace/opencv_4_5_2/bin/install/x64/vc16/lib/opencv_videoio452.lib

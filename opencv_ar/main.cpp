@@ -14,7 +14,7 @@ int main()
 	//ar_wrapper.DetectMarkerFromAnImage();
 
 	CameraCalibrator cam_calib;
-	cam_calib.CreateBoard();
+	cam_calib.CalibrateBoard();
 	
 	cin.get();
 	

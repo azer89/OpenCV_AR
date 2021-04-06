@@ -81,3 +81,81 @@ void CameraCalibrator::CreateBoard()
     //waitKey(0);
 
 }
+
+
+void CameraCalibrator::CalibrateBoard()
+{
+    cv::VideoCapture inputVideo;
+    int camId = 0;
+    inputVideo.open(camId, cv::CAP_DSHOW);
+    int waitTime = 10;
+
+    cv::Ptr<cv::aruco::Dictionary> dictionary =
+        cv::aruco::getPredefinedDictionary(cv::aruco::PREDEFINED_DICTIONARY_NAME(dictionaryId));
+
+    // create charuco board object
+    cv::Ptr<cv::aruco::CharucoBoard> charucoboard =
+        cv::aruco::CharucoBoard::create(squaresX, 
+										squaresY, 
+										squareLength, 
+										markerLength, 
+										dictionary);
+    cv::Ptr<cv::aruco::Board> board = charucoboard.staticCast<cv::aruco::Board>();
+
+    cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
+
+    while (inputVideo.grab())
+    {
+        cv::Mat image;
+        cv::Mat imageCopy;
+        inputVideo.retrieve(image);
+
+        std::vector< int > ids;
+        std::vector< std::vector< cv::Point2f > > corners, rejected;
+
+        cv::aruco::detectMarkers(image, dictionary, corners, ids, detectorParams, rejected);
+
+        cv::Mat currentCharucoCorners;
+    	cv::Mat currentCharucoIds;
+        if (ids.size() > 0)
+            cv::aruco::interpolateCornersCharuco(corners, 
+                ids, 
+                image, 
+                charucoboard, 
+                currentCharucoCorners,
+                currentCharucoIds);
+    	
+        // draw results
+        image.copyTo(imageCopy);
+
+        if (ids.size() > 0) cv::aruco::drawDetectedMarkers(imageCopy, corners);
+
+        if (currentCharucoCorners.total() > 0)
+            cv::aruco::drawDetectedCornersCharuco(imageCopy, currentCharucoCorners, currentCharucoIds);
+
+        putText(imageCopy, "Press 'c' to add current frame. 'ESC' to finish and calibrate",
+            cv::Point(10, 20), 
+            cv::FONT_HERSHEY_SIMPLEX, 
+            0.5, 
+            cv::Scalar(255, 0, 0), 
+            2);
+
+        imshow("Calibration", imageCopy);
+        char key = (char)cv::waitKey(waitTime);
+        if (key == 27) // ESC
+        {
+            break;
+        }
+        else if(key == 'c' || key == 'C')
+        {
+            std::cout << "c\n";
+        }
+        else if (key == 's' || key == 'S')
+        {
+            cv::imwrite("calibration_board.png", imageCopy);
+        }
+    }
+
+    inputVideo.release();
+    cv::destroyAllWindows();
+}
