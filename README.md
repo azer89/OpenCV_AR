@@ -12,6 +12,6 @@ Detecting a board
 Requirements:
 * A webcam
 * Visual Studio 2019 (C++)
-* OpenCV 4.5.2 that was manually compiled with extra modules (https://github.com/opencv/opencv_contrib)
+* OpenCV 4.5.2, manually compiled with extra modules (https://github.com/opencv/opencv_contrib)
 
 
