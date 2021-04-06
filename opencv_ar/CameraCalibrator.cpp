@@ -55,7 +55,6 @@ bool SaveCameraParams(const std::string& filename,
 }
 
 
-
 // https://docs.opencv.org/3.4/df/d4a/tutorial_charuco_detection.html
 
 /*

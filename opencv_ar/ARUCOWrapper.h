@@ -7,9 +7,11 @@ public:
 	ARUCOWrapper();
 	~ARUCOWrapper();
 
-	void CreateMarker();
+	void CreateArucoMarker();
 
-	void DetectMarkerFromAnImage();
+	void DetectArucoMarkerFromAnImage();
+
+	void DetectCharucoBoardFromVideo();
 };
 
 #endif
