@@ -1,16 +1,6 @@
 Tracking fiducial markers using OpenCV
 
----
-
-Detecting a simple marker
-
-![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/detected_marker.png)
-
----
-
-Calibration to measure the camera distortion 
-
-![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/calibration_board.png)
+![alt tag](https://github.com/azer89/opencv_ar/raw/master/screenshots/marker_detection.gif)
 
 ---
 Detecting a board
